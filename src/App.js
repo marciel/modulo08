@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function App() {
   const [tech, setTech] = useState([
@@ -11,6 +11,17 @@ function App() {
     setTech([...tech, newTech]);
     setNewTech('');
   }
+
+  useEffect(() => {
+    const storagetech = localStorage.getItem('tech');
+    if(storagetech){
+      setTech(JSON.parse(storagetech));
+    }
+  },[]);
+
+  useEffect(() => {
+    localStorage.setItem('tech', JSON.stringify(tech));
+  },[tech]);
 
   return (
     <>
